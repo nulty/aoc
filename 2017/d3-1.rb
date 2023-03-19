@@ -28,26 +28,26 @@ class Grid
 
     iterations = Math.sqrt(@input).floor
 
-    1.upto(iterations) do |n|
-      if n.odd?
+    1.upto(iterations) do |iteration|
+      if iteration.odd?
         move("right")
         set_curr_position(val += 1)
-        n.times do
+        iteration.times do
           move("up")
           set_curr_position(val += 1)
         end
-        n.times do
+        iteration.times do
           move("left")
           set_curr_position(val += 1)
         end
       else
         move("left")
         set_curr_position(val += 1)
-        n.times do
+        iteration.times do
           move("down")
           set_curr_position(val += 1)
         end
-        n.times do
+        iteration.times do
           move("right")
           set_curr_position(val += 1)
         end
@@ -58,15 +58,16 @@ class Grid
   def generate_grid(input, nils: false)
     sqrt = Math.sqrt(input)
     sqrt_ceil = sqrt.ceil
-    @grid_size = sqrt_ceil.odd? ? sqrt_ceil : sqrt_ceil.succ
-    n = 0
+    # @grid_size = sqrt_ceil.odd? ? sqrt_ceil : sqrt_ceil.succ
+    @grid_size = sqrt_ceil
+    iteration = 0
 
     Array.new(@grid_size) do
       Array.new(@grid_size) do
         if nils
           nil
-        else
-          format("%.#{@grid_size.to_s.length + 1}d", n = n.succ)
+        elsif 
+          format("%.#{@grid_size.to_s.length + 1}d", iteration = iteration.succ)
         end
       end
     end
@@ -86,10 +87,10 @@ class Grid
   end
 
   def print
-    n = 0
+    iteration = 0
     @grid.each do |row|
       row.each do |col|
-        val = col.nil? ? n = n.succ : col
+        val = col.nil? ? iteration = iteration.succ : col
         str = format("%.#{@grid_size.to_s.length + 1}d  ", val)
         super(str)
       end
@@ -135,3 +136,12 @@ class Grid
     @grid.length / 2
   end
 end
+
+@input = 289326
+def g
+  @g ||= Grid.new(@input, blank: true)
+end
+
+g.fill
+g.find(289326)
+num_steps = g.distance(point)
