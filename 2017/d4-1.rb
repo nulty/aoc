@@ -6,7 +6,7 @@
 
 # To ensure security, a valid passphrase must contain no duplicate words.
 
-data = File.new("./inputs/d4-1.txt").read
+data = File.new("./inputs/d4.txt").read
 
 puts data.lines.count { |phrase|
   phrase.chomp.split(/ /).size == phrase.chomp.split(/ /).uniq.size
